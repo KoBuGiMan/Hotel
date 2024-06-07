@@ -35,11 +35,11 @@ public class ReservationController {
         reservationService.deleteReservationById(id);
     }
 
-    @PostMapping("success")
-    public void dateTest(@RequestBody Reservation res){
-        System.out.println("Received Reservation: " + res.getStartDate() + " " + res.getEndDate() + " " + res.getRoomId());
-        System.out.println(roomService.getRoomById(res.getRoomId()).getRoomRole());
-
-    }
+//    @PostMapping("success")
+//    public void dateTest(@RequestBody Reservation res){
+//        System.out.println("Received Reservation: " + res.getStartDate() + " " + res.getEndDate() + " " + res.getRoomId());
+//        System.out.println(roomService.getRoomById(res.getRoomId()).getRoomRole());
+//
+//    }
 
 }
