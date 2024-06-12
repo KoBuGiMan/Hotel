@@ -39,10 +39,6 @@ public class UserController {
         userService.deleteUserById(id);
     }
 
-    @GetMapping("hello")
-    public List<String> hello(){
-        return Arrays.asList("MyApp", "Hello");
-    }
 
 
 

@@ -39,4 +39,9 @@ public class RoomListController {
     public List<Integer> getDateRoomList(@RequestBody RoomList roomList) {
         return roomListService.getDateRoomList(roomList);
     }
+
+    @PostMapping("/nowDateCheck")
+    public List<Integer> getNowDateRoomList() {
+        return roomListService.getNowDateRoomList();
+    }
 }

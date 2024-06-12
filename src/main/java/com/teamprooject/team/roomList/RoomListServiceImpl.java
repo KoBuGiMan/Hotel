@@ -2,11 +2,13 @@ package com.teamprooject.team.roomList;
 
 import com.teamprooject.team.room.RoomService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,27 +68,57 @@ public class RoomListServiceImpl implements RoomListService {
         list.add(standardCnt);
         list.add(deluxeCnt);
         list.add(luxuryCnt);
-        System.out.println(list);
         return list;
     }
 
-    public void mongoRoomListInsert(){
-        LocalDate startDate = LocalDate.now();
+    @Override
+    public List<Integer> getNowDateRoomList(){
+
+        int standardCnt = 0;
+        int deluxeCnt = 0;
+        int luxuryCnt = 0;
+
+        List<RoomList> allRoomLists = getAllRoomList();
+        LocalDate nowDate= LocalDate.now();
+
+
+        for(RoomList roomList : allRoomLists){
+            LocalDate roomDate = roomList.getDate();
+            if(roomDate.equals(nowDate)) {
+                standardCnt = roomList.getRoom().get(0).getRoomCount();
+                deluxeCnt = roomList.getRoom().get(1).getRoomCount();
+                luxuryCnt = roomList.getRoom().get(2).getRoomCount();
+            }
+        }
+        List<Integer> list = new ArrayList<>();
+        list.add(standardCnt);
+        list.add(deluxeCnt);
+        list.add(luxuryCnt);
+
+
+        return list;
+    }
+
+
+    public void mongoRoomListInsert() {
+        ZoneId seoulZoneId = ZoneId.of("Asia/Seoul");
+        LocalDate startDate = LocalDate.now(seoulZoneId);
         LocalDate endDate = startDate.plusMonths(1);
-        for(LocalDate date = startDate; !date.isAfter(endDate);date = date.plusDays(1)){
+        for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
             RoomList roomList = new RoomList();
             roomList.setDate(date);
             roomList.setRoom(roomService.getAllRooms());
             mongoTemplate.insert(roomList);
         }
-
     }
 
     public void mongoRoomListFix(){
-        LocalDate endDate = LocalDate.now().plusMonths(1);
+        ZoneId seoulZoneId = ZoneId.of("Asia/Seoul");
+        LocalDate startDate = LocalDate.now(seoulZoneId);
+        LocalDate endDate = startDate.plusMonths(1);
         if(getAllRoomList().getLast().getDate().compareTo(endDate) < 0){
-            LocalDate startDate = getAllRoomList().getLast().getDate().plusDays(1);
-            for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)){
+            LocalDate startedDate = getAllRoomList().getLast().getDate().plusDays(1);
+            for (LocalDate date = startedDate; !date.isAfter(endDate); date = date.plusDays(1)){
                 RoomList roomList = new RoomList();
                 roomList.setDate(date);
                 roomList.setRoom(roomService.getAllRooms());
@@ -97,10 +129,11 @@ public class RoomListServiceImpl implements RoomListService {
     }
 
     public void mongoRoomListDelete(){
-        LocalDate now = LocalDate.now();
+        ZoneId seoulZoneId = ZoneId.of("Asia/Seoul");
+        LocalDate now = LocalDate.now(seoulZoneId);
         for(int i = 0; i <getAllRoomList().toArray().length; i++ ){
             if(getAllRoomList().get(i).getDate().compareTo(now) < 0){
-                deleteRoomList(getAllRoomList().get(i).getId());
+                mongoTemplate.remove(getAllRoomList().get(i));
                 System.out.println("Delete Success");
             }
         }
@@ -108,8 +141,10 @@ public class RoomListServiceImpl implements RoomListService {
 
     @Scheduled(cron = "1 0 0 * * *", zone = "Asia/Seoul")
     public void run(){
-        LocalDate addDate = LocalDate.now().plusMonths(1);
-        LocalDate deleteDate = LocalDate.now().minusDays(1);
+        ZoneId seoulZoneId = ZoneId.of("Asia/Seoul");
+        LocalDate startDate = LocalDate.now(seoulZoneId);
+        LocalDate addDate = startDate.plusMonths(1);
+        LocalDate deleteDate = startDate.minusDays(1);
         RoomList roomList = new RoomList();
         roomList.setDate(addDate);
         roomList.setRoom(roomService.getAllRooms());
@@ -122,4 +157,6 @@ public class RoomListServiceImpl implements RoomListService {
         mongoTemplate.insert(roomList);
 
     }
+
+
 }

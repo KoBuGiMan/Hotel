@@ -1,21 +1,26 @@
 package com.teamprooject.team.reservation;
 
-import com.teamprooject.team.room.Room;
-import com.teamprooject.team.room.RoomRepository;
+
 import com.teamprooject.team.room.RoomService;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import net.nurigo.sdk.NurigoApp;
+import net.nurigo.sdk.message.response.SingleMessageSentResponse;
+import net.nurigo.sdk.message.service.DefaultMessageService;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/reservations")
+@RequestMapping("/reservation")
 public class ReservationController {
-    @Autowired
+
+
     private final ReservationService reservationService;
-    private final RoomService roomService;
+
 
     @PostMapping
     public Reservation createReservation(@RequestBody Reservation res) {
@@ -41,5 +46,7 @@ public class ReservationController {
 //        System.out.println(roomService.getRoomById(res.getRoomId()).getRoomRole());
 //
 //    }
+
+
 
 }
