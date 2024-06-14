@@ -8,12 +8,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rooms")
-@RequiredArgsConstructor
 public class RoomController {
 
     @Autowired
     private final RoomService roomService;
 
+    public RoomController(RoomService roomService) {
+        this.roomService = roomService;
+    }
     @PostMapping
     public Room createRoom(@RequestBody Room room){
         return roomService.createRoom(room);

@@ -14,12 +14,16 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/reservation")
 public class ReservationController {
 
 
+	@Autowired
     private final ReservationService reservationService;
+
+    public ReservationController(ReservationService reservationService) {
+        this.reservationService = reservationService;
+    }
 
 
     @PostMapping

@@ -21,7 +21,7 @@ public class MessageController {
 
 
     public MessageController() {
-        this.messageService = NurigoApp.INSTANCE.initialize("NCST2OFRXHYRWHBH", "LGKGUDRHS0AGHSPGMZEETIFUQOD0LFBH", "https://api.coolsms.co.kr");
+        this.messageService = NurigoApp.INSTANCE.initialize("NCSXY9JJDJG4EGR4", "S8NBHT2IWDDMBXCHCK6U0WYWLEPAFJKO", "https://api.coolsms.co.kr");
     }
 
 
@@ -36,7 +36,7 @@ public class MessageController {
         }
 
         Message message = new Message();
-        message.setFrom("01086081196");
+        message.setFrom("01056703899");
         message.setTo(phoneNum);
         message.setText("Your verification code is: [" + randomNumber+"]");
         System.out.println(message);

@@ -2,6 +2,8 @@ package com.teamprooject.team.roomList;
 
 import com.teamprooject.team.room.RoomService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -13,12 +15,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class RoomListServiceImpl implements RoomListService {
 
+	@Autowired
     private final RoomListRepository roomListRepository;
     private final MongoTemplate mongoTemplate;
     private final RoomService roomService;
+
+    public RoomListServiceImpl(RoomListRepository roomListRepository, MongoTemplate mongoTemplate, RoomService roomService) {
+        this.roomListRepository = roomListRepository;
+        this.mongoTemplate = mongoTemplate;
+        this.roomService = roomService;
+    }
 
     @Override
     public RoomList createRoomList(RoomList roomList) {

@@ -10,11 +10,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("roomList")
-@RequiredArgsConstructor
 public class RoomListController {
 
     @Autowired
     private final RoomListService roomListService;
+
+    public RoomListController(RoomListService roomListService) {
+        this.roomListService = roomListService;
+    }
 
     @PostMapping
     public RoomList createRoomList(@RequestBody RoomList roomList){

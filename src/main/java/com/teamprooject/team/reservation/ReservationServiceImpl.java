@@ -2,17 +2,24 @@ package com.teamprooject.team.reservation;
 
 import com.teamprooject.team.room.RoomRole;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class ReservationServiceImpl  implements ReservationService{
 
+	@Autowired
     private final ReservationRepository reservationRepository;
     private final MongoTemplate mongoTemplate;
+
+    public ReservationServiceImpl(ReservationRepository reservationRepository, MongoTemplate mongoTemplate){
+        this.reservationRepository = reservationRepository;
+        this.mongoTemplate = mongoTemplate;
+    }
 
     @Override
     public Reservation createReservation(Reservation res) {

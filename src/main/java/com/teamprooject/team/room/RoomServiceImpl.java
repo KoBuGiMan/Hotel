@@ -1,17 +1,24 @@
 package com.teamprooject.team.room;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class RoomServiceImpl implements RoomService{
 
+	@Autowired
     private final RoomRepository roomRepository;
     private final MongoTemplate mongoTemplate;
+
+    public RoomServiceImpl(RoomRepository roomRepository, MongoTemplate mongoTemplate){
+        this.roomRepository = roomRepository;
+        this.mongoTemplate = mongoTemplate;
+    }
     @Override
     public Room createRoom(Room room) {
         return roomRepository.save(room);

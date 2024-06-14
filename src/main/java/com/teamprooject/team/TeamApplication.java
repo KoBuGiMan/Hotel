@@ -15,7 +15,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import java.time.LocalDate;
 
 
-@RequiredArgsConstructor
 @SpringBootApplication
 @EnableScheduling
 public class TeamApplication implements ApplicationListener<ContextRefreshedEvent> {
@@ -24,6 +23,13 @@ public class TeamApplication implements ApplicationListener<ContextRefreshedEven
 	private final RoomServiceImpl roomService;
 	private final ReservationServiceImpl resService;
 	private final RoomListServiceImpl roomListService;
+	
+	public TeamApplication( UserServiceImpl userService,RoomServiceImpl roomService,ReservationServiceImpl resService,RoomListServiceImpl roomListService) {
+		this.userService = userService;
+		this.roomService = roomService;
+		this.resService = resService;
+		this.roomListService = roomListService;
+	}
 
 
 	public static void main(String[] args) {

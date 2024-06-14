@@ -1,6 +1,8 @@
 package com.teamprooject.team.user;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
@@ -8,12 +10,16 @@ import java.util.List;
 
 
 @Service
-@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
+	@Autowired
     private final MongoTemplate mongoTemplate;
-
     private final UserRepository userRepository;
+
+    public UserServiceImpl(MongoTemplate mongoTemplate, UserRepository userRepository){
+        this.mongoTemplate = mongoTemplate;
+        this.userRepository = userRepository;
+    }
 
     @Override
     public User createUser(User user) {
