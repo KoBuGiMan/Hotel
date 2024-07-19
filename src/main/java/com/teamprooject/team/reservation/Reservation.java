@@ -16,8 +16,7 @@ public class Reservation {
     @Id
     private String id;
 
-    private String firstName;
-    private String lastName;
+    private String name;
     private String email;
     private String phone;
     private String roomId;
@@ -28,9 +27,8 @@ public class Reservation {
     private LocalDate endDate;
 
     public Reservation (){}
-    public Reservation (String firstName,String lastName,String email,String phone,String roomId,RoomRole roomRole,int roomPrice,int roomCount,LocalDate startDate,LocalDate endDate){
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Reservation (String name,String email,String phone,String roomId,RoomRole roomRole,int roomPrice,int roomCount,LocalDate startDate,LocalDate endDate){
+        this.name = name;
         this.email = email;
         this.phone = phone;
         this.roomId = roomId;
@@ -49,20 +47,12 @@ public class Reservation {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {

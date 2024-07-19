@@ -35,6 +35,10 @@ dependencies {
 
 }
 
+bootJar {
+	archiveFileName = 'Team-0.0.1-SNAPSHOT.jar'
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
