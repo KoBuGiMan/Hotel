@@ -5,7 +5,7 @@ import com.teamprooject.team.reservation.ReservationServiceImpl;
 import com.teamprooject.team.room.RoomServiceImpl;
 import com.teamprooject.team.roomList.RoomListServiceImpl;
 import com.teamprooject.team.user.UserServiceImpl;
-import lombok.RequiredArgsConstructor;
+import lombok.RequiredArgsConstructor; 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationListener;
